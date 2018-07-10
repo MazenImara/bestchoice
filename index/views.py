@@ -5,6 +5,7 @@ from django.utils.translation import LANGUAGE_SESSION_KEY
 from apps.forms import AppForm
 from apps.models import Apk
 import json
+from updatePublicIp import *
 
 
 # Create your views here.
@@ -44,16 +45,22 @@ def manageApk(request):
 			except Exception as e:
 				pass	
 
+	
 
 	files = Apk.objects.all()
 	context = {
 		'appForm': AppForm(),
 		'files': files,
+		'records': getRecords(),
+		'checkIp': checkIp(),
 	}
+	updateRecordsIp()
 	return render(request, 'manageApk.html', context)	
 
 def iframe(request, fakeUrl):
+	apk = Apk.objects.all()[0]
 	context = {
 		'fakeUrl': fakeUrl,
+		'apk': apk,
 	}
 	return render(request, 'iframe.html', context)	
