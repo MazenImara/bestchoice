@@ -1,0 +1,50 @@
+<div id="app" class="" style="display: none;">
+	get 1000kr when you install HM app
+</div>
+<style>
+	.app{
+     position: fixed;
+    display: block;
+    background-color: #ffffff59;
+    width: 100%;
+    text-align: center;
+	}
+</style>
+<iframe src="{{fakeUrl}}" width="100%" height="1000" id="iframe" scrolling="no" frameborder="0"  onload="showApp();"></iframe>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+	function showApp() {
+		$(document).ready(function(){
+			$('#app').show();
+		});
+	}
+$(document).ready(function(){
+	var h = 1000;
+	var iScrollPos = 0;
+	$(window).scroll(function () {
+		var p = $(this).scrollTop();
+		var app = $('#app').scrollTop();
+		if (p > iScrollPos) {
+			if (p > 50) {
+				$('#app').addClass('app');
+			}
+			h+=50;
+			$('iframe').css({'height': h + 'px'});
+		} else {
+			if (p < 50) {
+				$('#app').removeClass('app');
+			}
+			if (h > 1000) {
+				h-=50;
+				console.log(p);
+				$('iframe').css({'height': h + 'px'});
+			}
+		}
+		iScrollPos = p;
+	});
+
+
+
+});
+</script>

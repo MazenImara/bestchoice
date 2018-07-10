@@ -1,0 +1,56 @@
+{% load static %}
+{% load i18n %}
+<link rel="stylesheet" href="{% static 'css/style.css' %}">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+<div class="switch_lang">
+	{% get_current_language as lang_code %}
+	<a href="{% url 'switch_lang'%}?lang=sv" class="{% if lang_code == 'sv' %}active{% endif %}">SV</a>
+	<a href="{% url 'switch_lang'%}?lang=en" class="{% if lang_code == 'en' %}active{% endif %}">EN</a>	
+</div>
+<h1>lang: {{lang_code}}</h1>
+<h1>{%trans "test"%} index</h1>
+
+
+
+
+
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Download</th>
+        <th>Os</th>
+        <th>Port</th>
+        <th>Type</th>
+        <th>Domain</th>
+        <th>Date</th>
+        <th>Del</th>
+      </tr>
+    </thead>
+    <tbody>
+	{% for file in files %}
+      <tr>
+        <td>{{file.name}}</td>
+        <td><a href="{{file.file.url}}">Download</a></td>
+        <td>{{file.os}}</td>
+        <td>{{file.port}}</td>
+        <td>{{file.type}}</td>
+        <td>{{file.domain}}</td>
+        <td>{{file.created}}</td>
+        <td><a href="?fun=del&id={{file.id}}">Del</a></td>
+      </tr>
+	{% endfor %} 
+    </tbody>
+  </table>
+
+
+
+
+<form action="" method="POST" enctype="multipart/form-data">{% csrf_token %}
+	{{appForm}}
+	<input type="submit" name="" value="{% trans 'Upload'%}">
+</form>
+
